@@ -164,13 +164,19 @@ public class Main {
     public static void main(String[] args) {
 
         // Menambahkan data dosen contoh ke dalam list
-        daftarDosen.add(new Dosen("D01", "Dr. Budi", "Pemrograman Web"));
-        daftarDosen.add(new Dosen("D02", "Prof. Siti", "Kecerdasan Buatan"));
-        daftarDosen.add(new Dosen("D03", "Dr. Ahmad", "Basis Data"));
+        daftarDosen.add(new Dosen("D01", "Stenly Pungus", "Software Engineer"));
+        daftarDosen.add(new Dosen("D02", "Debby Sondakh", "Research Method"));
+        daftarDosen.add(new Dosen("D03", "Semmy Taju", "Artificial Intelligence"));
+        daftarDosen.add(new Dosen("D04", "Green Sandag", "Expert System"));
+        daftarDosen.add(new Dosen("D05", "Green Mandias", "DBMS"));
+        daftarDosen.add(new Dosen("D06", "Andrew Liem", "Computer Network"));
+        daftarDosen.add(new Dosen("D07", "Oktoverano Lengkong", "UI/UX"));
 
         // Menambahkan data mahasiswa contoh ke dalam list
-        daftarMahasiswa.add(new Mahasiswa("M01", "Andi", "Teknik Informatika"));
-        daftarMahasiswa.add(new Mahasiswa("M02", "Dewi", "Sistem Informasi"));
+        daftarMahasiswa.add(new Mahasiswa("M01", "Dion Kobi", "Teknik Informatika"));
+        daftarMahasiswa.add(new Mahasiswa("M02", "Clio Marco Mataheru", "Teknik Informatika"));
+        daftarMahasiswa.add(new Mahasiswa("M03", "George Stivo Kaunang", "Teknik Informatika"));
+        daftarMahasiswa.add(new Mahasiswa("M04", "Geovani Waladow", "Teknik Informatika"));
 
         // Variabel untuk mengontrol perulangan menu
         boolean jalan = true;
@@ -239,7 +245,7 @@ public class Main {
 
         // Perulangan untuk menampilkan setiap dosen
         for (int i = 0; i < daftarDosen.size(); i++) {
-            System.out.println("[Dosen " + (i + 1) + "]");
+            System.out.println("Dosen " + (i + 1) + "");
 
             // Memanggil tampilkanInfo() --> POLYMORPHISM
             // Method yang dipanggil adalah versi milik class Dosen
@@ -255,7 +261,7 @@ public class Main {
         System.out.println("\n--- DAFTAR MAHASISWA ---\n");
 
         for (int i = 0; i < daftarMahasiswa.size(); i++) {
-            System.out.println("[Mahasiswa " + (i + 1) + "]");
+            System.out.println("Mahasiswa " + (i + 1) + "");
 
             // Memanggil tampilkanInfo() --> POLYMORPHISM
             // Method yang dipanggil adalah versi milik class Mahasiswa
