@@ -1,5 +1,10 @@
 # Sistem Konsultasi Mahasiswa - Dosen (OOP Java)
 
+## D-END Group
+    1.Dion Kobi
+    2.Clio Marco Mataheru
+    3.George Stivo Kaunang
+    4.Geovani Waladow
 ## Deskripsi Sistem
 
 Sistem ini adalah program berbasis **terminal (CLI)** yang memungkinkan mahasiswa untuk membuat jadwal konsultasi dengan dosen. Program ini dibangun menggunakan bahasa **Java** dengan menerapkan konsep **Object Oriented Programming (OOP)**.
