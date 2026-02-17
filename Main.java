@@ -1,41 +1,22 @@
-import java.util.ArrayList; // untuk menyimpan banyak data dalam bentuk list
-import java.util.Scanner;    // untuk membaca input dari keyboard
+import java.util.ArrayList;
+import java.util.Scanner;
 
 /*
- * =====================================================
- *  SISTEM KONSULTASI MAHASISWA - DOSEN
- *  Dibuat menggunakan konsep OOP (Object Oriented Programming)
- * 
- *  Konsep OOP yang dipakai:
- *  1. ABSTRACTION   = membuat class abstrak (cetakan umum)
- *  2. INHERITANCE    = class anak mewarisi class induk
- *  3. ENCAPSULATION  = menyembunyikan data dengan private
- *  4. POLYMORPHISM   = method yang sama tapi beda isi
- * =====================================================
+ * Sistem Konsultasi Mahasiswa - Dosen
+ * konsep OOP: Abstraction, Inheritance, Encapsulation, Polymorphism
  */
 
-// ==========================================================
-// CLASS ABSTRAK: Person
-// Ini adalah class INDUK / PARENT
-// Class ini TIDAK bisa dibuat objeknya langsung (karena abstract)
-// Tujuannya: jadi cetakan umum untuk Dosen dan Mahasiswa
-// KONSEP: ABSTRACTION & ENCAPSULATION
-// ==========================================================
+// Class induk untuk Dosen dan Mahasiswa (abstract, tidak bisa di-instantiate langsung)
 abstract class Person {
 
-    // Atribut dibuat PROTECTED supaya bisa diakses oleh class anak
-    // KONSEP: ENCAPSULATION (data dilindungi, tidak bisa diakses sembarangan)
     protected String nama;
     protected String id;
 
-    // Constructor = method yang dipanggil saat membuat objek baru
     public Person(String id, String nama) {
         this.id = id;
         this.nama = nama;
     }
 
-    // Getter = method untuk MENGAMBIL nilai atribut
-    // Karena atribut protected, kita akses lewat getter
     public String getNama() {
         return nama;
     }
@@ -44,36 +25,24 @@ abstract class Person {
         return id;
     }
 
-    // Method ABSTRACT = method tanpa isi, WAJIB diisi oleh class anak
-    // KONSEP: ABSTRACTION (kita tahu ada method ini, tapi isinya nanti)
+    // wajib di-override oleh class turunan
     public abstract void tampilkanInfo();
 }
 
-// ==========================================================
-// CLASS: Dosen
-// Class ini MEWARISI (extends) dari class Person
-// KONSEP: INHERITANCE (Dosen adalah turunan dari Person)
-// ==========================================================
+// Turunan Person, merepresentasikan data dosen
 class Dosen extends Person {
 
-    // Atribut tambahan khusus untuk Dosen
-    // KONSEP: ENCAPSULATION (dibuat private, hanya bisa diakses lewat getter)
     private String keahlian;
 
-    // Constructor Dosen
     public Dosen(String id, String nama, String keahlian) {
-        // super() = memanggil constructor dari class induk (Person)
         super(id, nama);
         this.keahlian = keahlian;
     }
 
-    // Getter untuk mengambil keahlian
     public String getKeahlian() {
         return keahlian;
     }
 
-    // MENGISI method abstract dari class Person
-    // KONSEP: POLYMORPHISM (method sama "tampilkanInfo" tapi isinya BEDA)
     @Override
     public void tampilkanInfo() {
         System.out.println("  ID : " + id);
@@ -82,29 +51,20 @@ class Dosen extends Person {
     }
 }
 
-// ==========================================================
-// CLASS: Mahasiswa
-// Class ini juga MEWARISI (extends) dari class Person
-// KONSEP: INHERITANCE (Mahasiswa adalah turunan dari Person)
-// ==========================================================
+// Turunan Person, merepresentasikan data mahasiswa
 class Mahasiswa extends Person {
 
-    // Atribut tambahan khusus untuk Mahasiswa
     private String jurusan;
 
-    // Constructor Mahasiswa
     public Mahasiswa(String id, String nama, String jurusan) {
-        super(id, nama); // memanggil constructor Person
+        super(id, nama);
         this.jurusan = jurusan;
     }
 
-    // Getter
     public String getJurusan() {
         return jurusan;
     }
 
-    // MENGISI method abstract dari class Person
-    // KONSEP: POLYMORPHISM (method sama "tampilkanInfo" tapi isinya BEDA dari Dosen)
     @Override
     public void tampilkanInfo() {
         System.out.println("  ID : " + id);
@@ -113,20 +73,14 @@ class Mahasiswa extends Person {
     }
 }
 
-// ==========================================================
-// CLASS: Konsultasi
-// Class ini menyimpan data satu sesi konsultasi
-// Di dalamnya ada objek Mahasiswa dan Dosen (KOMPOSISI)
-// ==========================================================
+// Menyimpan data satu sesi konsultasi antara mahasiswa dan dosen
 class Konsultasi {
 
-    // Atribut private (ENCAPSULATION)
     private Mahasiswa mahasiswa;
     private Dosen dosen;
     private String topik;
     private String tanggal;
 
-    // Constructor
     public Konsultasi(Mahasiswa mahasiswa, Dosen dosen, String topik, String tanggal) {
         this.mahasiswa = mahasiswa;
         this.dosen = dosen;
@@ -134,7 +88,6 @@ class Konsultasi {
         this.tanggal = tanggal;
     }
 
-    // Method untuk menampilkan detail konsultasi
     public void tampilkanDetail() {
         System.out.println("  Mahasiswa : " + mahasiswa.getNama());
         System.out.println("  Dosen : " + dosen.getNama());
@@ -143,40 +96,28 @@ class Konsultasi {
     }
 }
 
-// ==========================================================
-// CLASS UTAMA: Main
-// Di sinilah program dijalankan (method main ada di sini)
-// ==========================================================
 public class Main {
 
-    // ArrayList = tempat menyimpan banyak objek (seperti array tapi fleksibel)
     static ArrayList<Dosen> daftarDosen = new ArrayList<>();
     static ArrayList<Mahasiswa> daftarMahasiswa = new ArrayList<>();
     static ArrayList<Konsultasi> daftarKonsultasi = new ArrayList<>();
     static Scanner input = new Scanner(System.in);
 
-    // ======================================================
-    // METHOD MAIN = titik awal program dijalankan
-    // ======================================================
     public static void main(String[] args) {
 
-        // Menambahkan data dosen contoh ke dalam list
+        // data awal dosen
         daftarDosen.add(new Dosen("D01", "Dr. Budi", "Pemrograman Web"));
         daftarDosen.add(new Dosen("D02", "Prof. Siti", "Kecerdasan Buatan"));
         daftarDosen.add(new Dosen("D03", "Dr. Ahmad", "Basis Data"));
 
-        // Menambahkan data mahasiswa contoh ke dalam list
+        // data awal mahasiswa
         daftarMahasiswa.add(new Mahasiswa("M01", "Andi", "Teknik Informatika"));
         daftarMahasiswa.add(new Mahasiswa("M02", "Dewi", "Sistem Informasi"));
 
-        // Variabel untuk mengontrol perulangan menu
         boolean jalan = true;
 
-        // PERULANGAN MENU UTAMA
-        // Program akan terus berjalan sampai user pilih 0 (Keluar)
         while (jalan) {
 
-            // Menampilkan menu
             System.out.println();
             System.out.println("========================================");
             System.out.println("   SISTEM KONSULTASI MAHASISWA - DOSEN  ");
@@ -190,11 +131,9 @@ public class Main {
             System.out.println("========================================");
             System.out.print("  Pilih menu: ");
 
-            // Membaca pilihan user
             int pilihan = input.nextInt();
-            input.nextLine(); // mengosongkan sisa input
+            input.nextLine();
 
-            // Menjalankan aksi sesuai pilihan user
             switch (pilihan) {
                 case 1:
                     lihatDosen();
@@ -212,58 +151,43 @@ public class Main {
                     tambahMahasiswa();
                     break;
                 case 0:
-                    // Keluar dari program
                     System.out.println("\n  Terima kasih! Sampai jumpa.\n");
-                    jalan = false; // menghentikan while loop
+                    jalan = false;
                     break;
                 default:
                     System.out.println("\n  Pilihan tidak valid!");
             }
         }
 
-        input.close(); // menutup scanner
+        input.close();
     }
 
-    // ======================================================
-    // METHOD: Menampilkan semua dosen
-    // ======================================================
+    // tampilkan semua dosen
     static void lihatDosen() {
         System.out.println("\n--- DAFTAR DOSEN ---\n");
 
-        // Perulangan untuk menampilkan setiap dosen
         for (int i = 0; i < daftarDosen.size(); i++) {
             System.out.println("[Dosen " + (i + 1) + "]");
-
-            // Memanggil tampilkanInfo() --> POLYMORPHISM
-            // Method yang dipanggil adalah versi milik class Dosen
             daftarDosen.get(i).tampilkanInfo();
             System.out.println();
         }
     }
 
-    // ======================================================
-    // METHOD: Menampilkan semua mahasiswa
-    // ======================================================
+    // tampilkan semua mahasiswa
     static void lihatMahasiswa() {
         System.out.println("\n--- DAFTAR MAHASISWA ---\n");
 
         for (int i = 0; i < daftarMahasiswa.size(); i++) {
             System.out.println("[Mahasiswa " + (i + 1) + "]");
-
-            // Memanggil tampilkanInfo() --> POLYMORPHISM
-            // Method yang dipanggil adalah versi milik class Mahasiswa
             daftarMahasiswa.get(i).tampilkanInfo();
             System.out.println();
         }
     }
 
-    // ======================================================
-    // METHOD: Membuat konsultasi baru
-    // ======================================================
+    // buat jadwal konsultasi baru
     static void buatKonsultasi() {
         System.out.println("\n--- BUAT KONSULTASI ---\n");
 
-        // LANGKAH 1: Pilih mahasiswa
         System.out.println("Pilih Mahasiswa:");
         for (int i = 0; i < daftarMahasiswa.size(); i++) {
             System.out.println("  " + (i + 1) + ". " + daftarMahasiswa.get(i).getNama());
@@ -272,13 +196,11 @@ public class Main {
         int noMhs = input.nextInt();
         input.nextLine();
 
-        // Cek apakah nomor valid
         if (noMhs < 1 || noMhs > daftarMahasiswa.size()) {
             System.out.println("  Nomor tidak valid!");
-            return; // kembali ke menu
+            return;
         }
 
-        // LANGKAH 2: Pilih dosen
         System.out.println("\nPilih Dosen:");
         for (int i = 0; i < daftarDosen.size(); i++) {
             System.out.println("  " + (i + 1) + ". " + daftarDosen.get(i).getNama()
@@ -293,14 +215,12 @@ public class Main {
             return;
         }
 
-        // LANGKAH 3: Input topik dan tanggal
         System.out.print("Topik konsultasi: ");
         String topik = input.nextLine();
 
         System.out.print("Tanggal (cth: 20-02-2026): ");
         String tanggal = input.nextLine();
 
-        // LANGKAH 4: Membuat objek Konsultasi baru dan simpan ke list
         Mahasiswa mhs = daftarMahasiswa.get(noMhs - 1);
         Dosen dsn = daftarDosen.get(noDosen - 1);
         Konsultasi baru = new Konsultasi(mhs, dsn, topik, tanggal);
@@ -309,19 +229,15 @@ public class Main {
         System.out.println("\n  Konsultasi berhasil dibuat!");
     }
 
-    // ======================================================
-    // METHOD: Menampilkan semua konsultasi
-    // ======================================================
+    // tampilkan semua konsultasi yang sudah dibuat
     static void lihatKonsultasi() {
         System.out.println("\n--- DAFTAR KONSULTASI ---\n");
 
-        // Cek apakah sudah ada konsultasi
         if (daftarKonsultasi.isEmpty()) {
             System.out.println("  Belum ada konsultasi.");
             return;
         }
 
-        // Tampilkan semua konsultasi
         for (int i = 0; i < daftarKonsultasi.size(); i++) {
             System.out.println("[Konsultasi " + (i + 1) + "]");
             daftarKonsultasi.get(i).tampilkanDetail();
@@ -329,9 +245,7 @@ public class Main {
         }
     }
 
-    // ======================================================
-    // METHOD: Menambah mahasiswa baru
-    // ======================================================
+    // tambah data mahasiswa baru
     static void tambahMahasiswa() {
         System.out.println("\n--- TAMBAH MAHASISWA ---\n");
 
@@ -344,7 +258,6 @@ public class Main {
         System.out.print("Jurusan: ");
         String jurusan = input.nextLine();
 
-        // Membuat objek Mahasiswa baru dan tambahkan ke list
         Mahasiswa baru = new Mahasiswa(id, nama, jurusan);
         daftarMahasiswa.add(baru);
 
