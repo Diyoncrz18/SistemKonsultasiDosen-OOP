@@ -148,6 +148,7 @@ Main
 | 3 | Buat Konsultasi | Membuat jadwal konsultasi (pilih mahasiswa, dosen, topik, tanggal) |
 | 4 | Lihat Konsultasi | Menampilkan semua konsultasi yang sudah dibuat |
 | 5 | Tambah Mahasiswa | Menambahkan mahasiswa baru ke dalam sistem |
+| 6 | Hapus Data       | Menghapus data mahasiswa, dosen, atau konsultasi |
 | 0 | Keluar | Menghentikan program |
 
 ---
@@ -158,6 +159,65 @@ Main
 javac Main.java
 java Main
 ```
+## Detail Fitur Hapus Data (Menu 6)
+
+Ketika user memilih menu **6. Hapus Data**, program akan menampilkan sub-menu:
+```
+--- HAPUS DATA ---
+
+  Hapus data apa?
+  1. Hapus Mahasiswa
+  2. Hapus Dosen
+  3. Hapus Konsultasi
+  0. Kembali ke Menu Utama
+```
+
+Setiap opsi hapus memiliki **2 lapisan perlindungan** agar user tidak salah hapus:
+
+| Lapisan | Mekanisme | Tujuan |
+|---|---|---|
+| 1 | Pilih `0` di sub-menu | Kembali ke menu utama tanpa hapus apapun |
+| 2 | Konfirmasi `y/n` sebelum hapus | Mencegah penghapusan tidak disengaja |
+
+### Alur Hapus Mahasiswa & Dosen
+```
+Menu 6 → pilih 1 (Mahasiswa) atau 2 (Dosen)
+  → tampil daftar nama + ID
+  → user pilih nomor (0 = batal)
+  → konfirmasi y/n
+  → jika y: data dihapus dari ArrayList
+  → jika n: dibatalkan, kembali ke menu utama
+```
+
+### Alur Hapus Konsultasi
+```
+Menu 6 → pilih 3 (Konsultasi)
+  → tampil semua detail konsultasi (mahasiswa, dosen, topik, tanggal, waktu)
+  → user pilih nomor (0 = batal)
+  → konfirmasi y/n
+  → jika y: konsultasi dihapus dari ArrayList
+  → jika n: dibatalkan, kembali ke menu utama
+```
+
+### Method yang Ditambahkan
+
+| Method | Fungsi |
+|---|---|
+| `hapusData()` | Menampilkan sub-menu pilihan hapus |
+| `hapusMahasiswa()` | Menghapus mahasiswa dari `daftarMahasiswa` |
+| `hapusDosen()` | Menghapus dosen dari `daftarDosen` |
+| `hapusKonsultasi()` | Menghapus konsultasi dari `daftarKonsultasi` |
+
+### Cara Kerja Penghapusan (ArrayList)
+```java
+// Menghapus data berdasarkan index (nomor urut - 1)
+daftarMahasiswa.remove(nomor - 1);
+daftarDosen.remove(nomor - 1);
+daftarKonsultasi.remove(nomor - 1);
+```
+
+`ArrayList.remove(index)` akan otomatis menggeser semua elemen setelahnya, 
+sehingga tidak ada "slot kosong" yang tersisa di dalam list.
 
 ---
 
